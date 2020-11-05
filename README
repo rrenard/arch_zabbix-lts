@@ -1,0 +1,7 @@
+zabbix-lts packages - 5.0.x
+
+Based on https://github.com/archlinux/svntogit-packages/commit/84c4b298fb15684994661daaa404f66e683c7266
+
+git log:
+84c4b298fb15684994661daaa404f66e683c7266 (HEAD) upgpkg: zabbix 5.0.3-2: rebuild with net-snmp 5.9
+

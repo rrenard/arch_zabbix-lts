@@ -4,7 +4,7 @@
 pkgbase=zabbix
 pkgname=(zabbix-lts-server zabbix-lts-agent{,2} zabbix-lts-proxy zabbix-lts-frontend-php)
 pkgver=5.0.17
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.zabbix.com/'
 license=(GPL)

@@ -114,6 +114,12 @@ package_zabbix-lts-server() {
 	"$pkgdir/usr/lib/sysusers.d/zabbix-server.conf"
   install -Dm644 "$srcdir/zabbix-server.tmpfiles" \
 	"$pkgdir/usr/lib/tmpfiles.d/zabbix-server.conf"
+
+  # Fix socket paths to avoid 10 day cleanup in /tmp
+  echo "d /run/$pkgname 750 $pkgname $pkgname" > "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
+  sed -i \
+    -e "s/# SocketDir=\/tmp/SocketDir=\/run\/$pkgname/" \
+    "$pkgdir/etc/zabbix/"*.conf
 }
 
 package_zabbix-lts-agent() {
@@ -195,6 +201,12 @@ package_zabbix-lts-proxy() {
 	"$pkgdir/usr/lib/sysusers.d/zabbix-proxy.conf"
   install -Dm644 "$srcdir/zabbix-proxy.tmpfiles" \
 	"$pkgdir/usr/lib/tmpfiles.d/zabbix-proxy.conf"
+
+  # Fix socket paths to avoid 10 day cleanup in /tmp
+  echo "d /run/$pkgname 750 $pkgname $pkgname" > "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
+  sed -i \
+    -e "s/# SocketDir=\/tmp/SocketDir=\/run\/$pkgname/" \
+    "$pkgdir/etc/zabbix/"*.conf
 }
 
 package_zabbix-lts-frontend-php() {

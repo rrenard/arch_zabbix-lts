@@ -64,6 +64,12 @@ build() {
 
   cd $pkgbase-$pkgver
 
+  # Make copies since `make clean` removes the files and they cannot be rebuilt easily
+  for db in postgresql mysql sqlite3; do
+          mkdir -p ../copies/database/$db
+          cp database/$db/*.sql ../copies/database/$db/
+  done
+
   for db in postgresql mysql; do
     ./configure ${_configure_flags[@]} --enable-server --with-$db
     make clean
@@ -95,7 +101,7 @@ package_zabbix-lts-server() {
       "$pkgdir/usr/bin/zabbix_server_$db"
 
     install -d "$pkgdir/usr/share/$pkgname/$db"
-    install -m644 database/$db/*.sql -t "$pkgdir/usr/share/$pkgname/$db"
+    install -m644 ../copies/database/$db/*.sql -t "$pkgdir/usr/share/$pkgname/$db"
   done
   install -Dm755 src/zabbix_get/zabbix_get "$pkgdir/usr/bin/zabbix_get"
 
@@ -185,7 +191,7 @@ package_zabbix-lts-proxy() {
       "$pkgdir/usr/bin/zabbix_proxy_$db"
 
     install -d "$pkgdir/usr/share/$pkgname/$db"
-    install -m644 database/$db/schema.sql -t "$pkgdir/usr/share/$pkgname/$db"
+    install -m644 ../copies/database/$db/*.sql -t "$pkgdir/usr/share/$pkgname/$db"
   done
   install -Dm644 conf/zabbix_proxy.conf "$pkgdir/etc/zabbix/zabbix_proxy.conf"
   chown 171:171 "$pkgdir/etc/zabbix/zabbix_proxy.conf"

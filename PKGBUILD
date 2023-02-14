@@ -8,7 +8,7 @@ pkgrel=1
 arch=(x86_64)
 url='https://www.zabbix.com/'
 license=(GPL)
-makedepends=(postgresql-libs libxml2 unixodbc net-snmp mariadb-libs libldap libevent go)
+makedepends=(postgresql-libs libxml2 unixodbc net-snmp mariadb-libs libldap libevent go pkgconfig)
 source=("https://cdn.zabbix.com/zabbix/sources/stable/${pkgver%.*}/zabbix-${pkgver}.tar.gz"
         zabbix-agent.{service,sysusers,tmpfiles}
         zabbix-agent2.service
